@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
   <style>
     :root {
       --bg: #0b0b12;
@@ -270,6 +272,37 @@
       object-fit: cover;
     }
     /* ================= FLOATING 👋 BALLOONS ================= */
+        /* ===== Places page ===== */
+    .page { justify-content: flex-start; }
+    .page .inner { margin: auto 0; }
+
+    .places { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; text-align: left; }
+    .place { position: relative; aspect-ratio: 3 / 4; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: linear-gradient(160deg, #2a2a40, #161622); }
+    .place-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .place::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 45%, transparent 70%); }
+    .place-num { position: absolute; top: 12px; left: 14px; z-index: 1; font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.85); background: rgba(0,0,0,0.35); padding: 2px 10px; border-radius: 999px; }
+    .place-info { position: absolute; left: 14px; right: 14px; bottom: 14px; z-index: 1; }
+    .place-country { display: flex; align-items: center; gap: 7px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #d6d6e4; }
+    .place-country img { width: 22px; height: 15px; border-radius: 3px; object-fit: cover; }
+    .place-city { font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1.15; margin-top: 2px; }
+    @media (max-width: 600px) {
+      .places { gap: 8px; }
+      .place-city { font-size: 0.95rem; }
+      .place-country { font-size: 0.55rem; }
+      .place-num { display: none; }
+    }
+
+    /* ===== Journey map ===== */
+    .journey { margin-top: 28px; text-align: left; }
+    .journey-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    #journey-map { height: 340px; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #1a1a24; cursor: grab; }
+    .stop-icon { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, var(--accent1), var(--accent2)); color: #fff; font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center; border: 2px solid #fff; box-shadow: 0 0 0 4px rgba(127,92,255,0.35); }
+    .stop-icon.final { width: 30px; height: 30px; background: linear-gradient(135deg, var(--accent3), var(--accent1)); animation: ping 1.8s ease-in-out infinite; }
+    @keyframes ping { 50% { box-shadow: 0 0 0 10px rgba(79,209,255,0.15); } }
+    .journey-line { stroke-dasharray: 8 8; animation: dash 1s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -16; } }
+    .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--card); color: var(--text); }
+    .leaflet-popup-content { font-family: "Inter", sans-serif; margin: 10px 14px; }
     .float-emoji {
       position: fixed;
       bottom: -80px;
@@ -350,27 +383,51 @@
       </div>
     </section>
 
-    <!-- PAGE 3: Things I Enjoy -->
+    <!-- PAGE 3: Places -->
+        <!-- PAGE 3: Places + Journey Map -->
     <section class="page">
       <div class="inner">
-        <p class="label pop">Hobbies</p>
-        <h2 class="pop">Things I <span class="gradient">enjoy</span></h2>
-        <div class="grid pop">
-          <div class="card">
-            <div class="emoji">🎮</div>
-            <h3>Hobby One</h3>
-            <p>A short sentence about why you like it.</p>
+        <p class="label pop">Places</p>
+        <h2 class="pop">Where I've <span class="gradient">been</span></h2>
+
+        <div class="places pop">
+          <div class="place">
+            <img class="place-photo" src="images/seoul.jpg" alt="Seoul" onerror="this.style.display='none'">
+            <span class="place-num">01</span>
+            <div class="place-info">
+              <div class="place-country"><img src="https://flagcdn.com/kr.svg" alt="">South Korea</div>
+              <div class="place-city">Seoul</div>
+            </div>
           </div>
-          <div class="card">
-            <div class="emoji">📚</div>
-            <h3>Hobby Two</h3>
-            <p>A short sentence about why you like it.</p>
+          <div class="place">
+            <img class="place-photo" src="images/bangkok.jpg" alt="Bangkok" onerror="this.style.display='none'">
+            <span class="place-num">02</span>
+            <div class="place-info">
+              <div class="place-country"><img src="https://flagcdn.com/th.svg" alt="">Thailand</div>
+              <div class="place-city">Bangkok</div>
+            </div>
           </div>
-          <div class="card">
-            <div class="emoji">🌍</div>
-            <h3>Hobby Three</h3>
-            <p>A short sentence about why you like it.</p>
+          <div class="place">
+            <img class="place-photo" src="images/danielson.jpg" alt="Danielson" onerror="this.style.display='none'">
+            <span class="place-num">03</span>
+            <div class="place-info">
+              <div class="place-country"><img src="https://flagcdn.com/us.svg" alt="">USA</div>
+              <div class="place-city">Danielson, CT</div>
+            </div>
           </div>
+          <div class="place">
+            <img class="place-photo" src="images/bremen.jpg" alt="Bremen" onerror="this.style.display='none'">
+            <span class="place-num">04</span>
+            <div class="place-info">
+              <div class="place-country"><img src="https://flagcdn.com/de.svg" alt="">Germany</div>
+              <div class="place-city">Bremen</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="journey pop">
+          <div class="journey-title">My journey to Berlin</div>
+          <div id="journey-map"></div>
         </div>
       </div>
     </section>
@@ -458,7 +515,55 @@
         setTimeout(() => e.remove(), (duration + 1.5) * 1000);
       }
     }
+    /* ---------- Journey map ---------- */
+    const stops = [
+      { name: "Seoul",     country: "South Korea",      coords: [37.5665, 126.9780] },
+      { name: "Danielson", country: "Connecticut, USA", coords: [41.8026, -71.8859] },
+      { name: "Bangkok",   country: "Thailand",         coords: [13.7563, 100.5018] },
+      { name: "Bremen",    country: "Germany",          coords: [53.0793, 8.8017] },
+      { name: "Berlin",    country: "Germany · Now",    coords: [52.5200, 13.4050] }
+    ];
+    const map = L.map("journey-map", { scrollWheelZoom: false });
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+      attribution: "&copy; OpenStreetMap &copy; CARTO", subdomains: "abcd", maxZoom: 19
+    }).addTo(map);
+    const bounds = L.latLngBounds(stops.map(s => s.coords));
+    map.fitBounds(bounds, { padding: [30, 30] });
 
+    function arc(a, b) {
+      const [lat1, lng1] = a, [lat2, lng2] = b;
+      const cLat = (lat1 + lat2) / 2 - (lng2 - lng1) * 0.15;
+      const cLng = (lng1 + lng2) / 2 + (lat2 - lat1) * 0.15;
+      const pts = [];
+      for (let t = 0; t <= 1.0001; t += 0.025) {
+        pts.push([(1-t)*(1-t)*lat1 + 2*(1-t)*t*cLat + t*t*lat2, (1-t)*(1-t)*lng1 + 2*(1-t)*t*cLng + t*t*lng2]);
+      }
+      return pts;
+    }
+
+    const markers = stops.map((s, i) => {
+      const last = i === stops.length - 1;
+      const icon = L.divIcon({ className: "", html: `<div class="stop-icon${last ? " final" : ""}">${i + 1}</div>`, iconSize: [30, 30], iconAnchor: [15, 15] });
+      return L.marker(s.coords, { icon }).bindPopup(`<b>${i + 1}. ${s.name}</b><br>${s.country}`, { autoPan: false });
+    });
+
+    let lines = [], anim = [];
+    function playJourney() {
+      anim.forEach(clearTimeout); anim = [];
+      lines.forEach(l => map.removeLayer(l)); lines = [];
+      markers.forEach(m => map.removeLayer(m));
+      map.invalidateSize();
+      map.fitBounds(bounds, { padding: [30, 30] });
+      markers[0].addTo(map);
+      for (let i = 0; i < stops.length - 1; i++) {
+        const pts = arc(stops[i].coords, stops[i + 1].coords);
+        const line = L.polyline([], { color: "#ff6ec7", weight: 3, opacity: 0.9, className: "journey-line" }).addTo(map);
+        lines.push(line);
+        pts.forEach((p, k) => anim.push(setTimeout(() => line.addLatLng(p), 700 + i * 1000 + k * 20)));
+        anim.push(setTimeout(() => markers[i + 1].addTo(map), 700 + i * 1000 + pts.length * 20));
+      }
+      anim.push(setTimeout(() => markers[stops.length - 1].openPopup(), 700 + (stops.length - 1) * 1000 + 300));
+    }
     /* ---------- Click-through pages ---------- */
     const pages = document.querySelectorAll(".page");
     const dotsBox = document.getElementById("dots");
@@ -492,7 +597,7 @@
 
       // Balloons only on the first page
       if (i === 0) celebrate("👋");
-
+      if (i === 2) playJourney();
       const last = i === pages.length - 1;
       hint.textContent = last ? "Click anywhere to start over" : "Click anywhere to continue";
       back.classList.toggle("show", i > 0);
@@ -505,7 +610,7 @@
     function prev() { if (current > 0) goTo(current - 1); }
 
     document.getElementById("stage").addEventListener("click", e => {
-      if (!introDone || e.target.closest("a, button")) return;
+      if (!introDone || e.target.closest("a, button, #journey-map")) return;
       next();
     });
     back.addEventListener("click", e => { e.stopPropagation(); prev(); });
