@@ -408,7 +408,7 @@
             </div>
           </div>
           <div class="place">
-            <img class="place-photo" src="images/danielson.jpg" alt="Danielson" onerror="this.style.display='none'">
+            <img class="place-photo" src="images/danielson.jpg" alt="Map showing Connecticut in the USA" style="object-position: right center;" onerror="this.style.display='none'">
             <span class="place-num">03</span>
             <div class="place-info">
               <div class="place-country"><img src="https://flagcdn.com/us.svg" alt="">USA</div>
@@ -416,7 +416,7 @@
             </div>
           </div>
           <div class="place">
-            <img class="place-photo" src="images/bremen.jpg" alt="Bremen" onerror="this.style.display='none'">
+            <img class="place-photo" src="images/bremen.avif" alt="Bremen" onerror="this.style.display='none'">
             <span class="place-num">04</span>
             <div class="place-info">
               <div class="place-country"><img src="https://flagcdn.com/de.svg" alt="">Germany</div>
@@ -524,8 +524,8 @@
       { name: "Berlin",    country: "Germany · Now",    coords: [52.5200, 13.4050] }
     ];
     const map = L.map("journey-map", { scrollWheelZoom: false });
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-      attribution: "&copy; OpenStreetMap &copy; CARTO", subdomains: "abcd", maxZoom: 19
+    L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+      attribution: "Tiles &copy; Esri", maxZoom: 16
     }).addTo(map);
     const bounds = L.latLngBounds(stops.map(s => s.coords));
     map.fitBounds(bounds, { padding: [30, 30] });
