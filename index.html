@@ -254,6 +254,8 @@
       transition: opacity 0.4s ease;
     }
     #back.show { opacity: 1; pointer-events: auto; }
+
+    /* ================= FLAG BADGE (page 2) ================= */
     .from-badge {
       display: inline-flex;
       align-items: center;
@@ -271,8 +273,8 @@
       border-radius: 4px;
       object-fit: cover;
     }
-    /* ================= FLOATING 👋 BALLOONS ================= */
-        /* ===== Places page ===== */
+
+    /* ================= PLACES (page 3) ================= */
     .page { justify-content: flex-start; }
     .page .inner { margin: auto 0; }
 
@@ -292,7 +294,7 @@
       .place-num { display: none; }
     }
 
-    /* ===== Journey map ===== */
+    /* ================= JOURNEY MAP (page 3) ================= */
     .journey { margin-top: 28px; text-align: left; }
     .journey-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
     #journey-map { height: 340px; border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); background: #1a1a24; cursor: grab; }
@@ -303,6 +305,52 @@
     @keyframes dash { to { stroke-dashoffset: -16; } }
     .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--card); color: var(--text); }
     .leaflet-popup-content { font-family: "Inter", sans-serif; margin: 10px 14px; }
+
+    /* ================= TIMELINE (page 4) ================= */
+    .timeline { position: relative; max-width: 620px; margin: 0 auto; text-align: left; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; background: linear-gradient(var(--accent3), var(--accent1), var(--accent2)); }
+    .t-item { position: relative; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 16px 18px; margin-bottom: 14px; }
+    .t-item::before { content: ""; position: absolute; left: -26px; top: 20px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent1); border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--accent1); }
+    .t-item.now::before { background: var(--accent3); box-shadow: 0 0 0 2px var(--accent3), 0 0 14px var(--accent3); }
+    .t-year { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent3); }
+    .t-title { font-size: 1.15rem; font-weight: 800; }
+    .t-place { color: var(--muted); font-size: 0.95rem; }
+    .t-sub { list-style: none; margin-top: 12px; display: grid; gap: 8px; }
+    .t-sub li { display: flex; gap: 10px; align-items: flex-start; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 10px 12px; font-size: 0.92rem; }
+    .t-sub b { display: block; }
+    .t-sub .muted { display: block; color: var(--muted); font-size: 0.82rem; }
+    .t-tag { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: rgba(127,92,255,0.22); color: #c9b8ff; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .t-tag.intern { background: rgba(255,110,199,0.18); color: #ffb3e1; }
+
+        /* ================= FUN SIDE (page 5) ================= */
+    .fun-wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center; text-align: left; }
+    .collage { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 10px; }
+    .polaroid { position: relative; background: #fff; padding: 6px 6px 26px; border-radius: 6px; box-shadow: 0 8px 24px rgba(0,0,0,0.45); transform: rotate(var(--r, 0deg)); transition: transform 0.3s ease; }
+    .polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 2px; background: #ddd; }
+    .polaroid .cap { position: absolute; bottom: 3px; left: 0; right: 0; text-align: center; font-family: "Dancing Script", cursive; color: #333; font-size: 0.95rem; }
+    .polaroid:hover { transform: rotate(0deg) scale(1.12); z-index: 5; }
+    .polaroid:nth-child(1) { --r: -6deg; }
+    .polaroid:nth-child(2) { --r: 4deg; margin-top: 14px; }
+    .polaroid:nth-child(3) { --r: -3deg; }
+    .polaroid:nth-child(4) { --r: 5deg; }
+    .polaroid:nth-child(5) { --r: -5deg; margin-top: -8px; }
+    .polaroid:nth-child(6) { --r: 3deg; }
+    .page.active .polaroid { animation: drop 0.6s cubic-bezier(0.2, 1.4, 0.4, 1) backwards; }
+    .page.active .polaroid:nth-child(1) { animation-delay: 0.3s; }
+    .page.active .polaroid:nth-child(2) { animation-delay: 0.45s; }
+    .page.active .polaroid:nth-child(3) { animation-delay: 0.6s; }
+    .page.active .polaroid:nth-child(4) { animation-delay: 0.75s; }
+    .page.active .polaroid:nth-child(5) { animation-delay: 0.9s; }
+    .page.active .polaroid:nth-child(6) { animation-delay: 1.05s; }
+    @keyframes drop { from { opacity: 0; transform: translateY(-40px) rotate(0deg) scale(0.8); } }
+    .hobbies h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .hobby-list { list-style: none; display: grid; gap: 10px; }
+    .hobby-list li { display: flex; gap: 12px; align-items: center; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 12px 16px; }
+    .hobby-list .emoji { font-size: 1.4rem; }
+    @media (max-width: 700px) {
+      .fun-wrap { grid-template-columns: 1fr; gap: 20px; }
+    }
+    /* ================= FLOATING 👋 BALLOONS ================= */
     .float-emoji {
       position: fixed;
       bottom: -80px;
@@ -372,7 +420,7 @@
       <div class="inner">
         <p class="label pop">About Me</p>
         <h2 class="pop">A little about <span class="gradient">배태랑</span></h2>
-                <div class="from-badge pop">
+        <div class="from-badge pop">
           <img src="https://flagcdn.com/kr.svg" alt="Flag of South Korea">
           From South Korea
         </div>
@@ -383,8 +431,7 @@
       </div>
     </section>
 
-    <!-- PAGE 3: Places -->
-        <!-- PAGE 3: Places + Journey Map -->
+    <!-- PAGE 3: Places + Journey Map -->
     <section class="page">
       <div class="inner">
         <p class="label pop">Places</p>
@@ -432,8 +479,7 @@
       </div>
     </section>
 
-    <!-- PAGE 4: Fun Facts -->
-      <!-- PAGE 4: Academic & Professional Journey -->
+    <!-- PAGE 4: Academic & Professional Journey -->
     <section class="page">
       <div class="inner">
         <p class="label pop">Journey</p>
@@ -442,34 +488,51 @@
 
           <div class="t-item">
             <span class="t-year">2023 – 2026</span>
-            <div class="t-title">Bachelor's in Management, Decisions & Data Analytics</div>
+            <div class="t-title">Bachelor's in Management, Decisions &amp; Data Analytics</div>
             <div class="t-place">Constructor University, Bremen</div>
             <ul class="t-sub">
               <li><span class="t-tag">TA</span><div><b>Teaching Assistant – Digital Marketing</b><span class="muted">2024</span></div></li>
-              <li><span class="t-tag intern">Intern</span><div><b>Summer Intern (International Business) – Mononext</b><span class="muted"> Bankgkok </span></div></li>
+              <li><span class="t-tag intern">Intern</span><div><b>Summer Intern (International Business) – Mononext</b><span class="muted">Bangkok</span></div></li>
               <li><span class="t-tag">TA</span><div><b>Teaching Assistant – International Strategic Management</b><span class="muted">2025</span></div></li>
             </ul>
           </div>
 
           <div class="t-item now">
             <span class="t-year">2026 – Now</span>
-            <div class="t-title">[Your Current Program]</div>
-            <div class="t-place">[School], Berlin</div>
+            <div class="t-title">BIPM</div>
+            <div class="t-place">HWR, Berlin</div>
           </div>
 
         </div>
       </div>
     </section>
 
-    <!-- PAGE 5: Contact -->
+        <!-- PAGE 5: Fun Side -->
     <section class="page">
       <div class="inner">
-        <p class="label pop">Say Hi</p>
-        <h2 class="pop">Let's <span class="gradient">connect</span></h2>
-        <p class="lead pop">Feel free to say hi in class or reach out anytime!</p>
-        <div class="links pop">
-          <a href="mailto:you@example.com">Email</a>
-          <a href="https://github.com/your-username" target="_blank">GitHub</a>
+        <p class="label pop">Fun Side</p>
+        <h2 class="pop">the <span class="gradient">REAL</span> me</h2>
+        <div class="fun-wrap pop">
+
+          <div class="collage">
+            <div class="polaroid"><img src="images/fun1.jpg" alt="Funny photo of me"><span class="cap">caption here</span></div>
+            <div class="polaroid"><img src="images/fun2.jpg" alt="Funny photo of me"><span class="cap">caption here</span></div>
+            <div class="polaroid"><img src="images/fun3.jpg" alt="Funny photo of me"><span class="cap">caption here</span></div>
+            <div class="polaroid"><img src="images/fun4.jpg" alt="Funny photo of me"><span class="cap">caption here</span></div>
+            <div class="polaroid"><img src="images/fun5.jpg" alt="Funny photo of me"><span class="cap">caption here</span></div>
+            <div class="polaroid"><img src="images/fun6.jpg" alt="Funny photo of me"><span class="cap">caption here</span></div>
+          </div>
+
+          <div class="hobbies">
+            <h3>Things I love doing</h3>
+            <ul class="hobby-list">
+              <li><span class="emoji">🍺</span>Beer</li>
+              <li><span class="emoji">🍳</span>Cooking</li>
+              <li><span class="emoji">⚽</span>Football</li>
+              <li><span class="emoji">🃏</span>Poker</li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>
@@ -513,22 +576,6 @@
     document.getElementById("skip").addEventListener("click", endIntro);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) endIntro();
 
-        /* ===== Timeline (page 4) ===== */
-    .timeline { position: relative; max-width: 620px; margin: 0 auto; text-align: left; padding-left: 28px; }
-    .timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; background: linear-gradient(var(--accent3), var(--accent1), var(--accent2)); }
-    .t-item { position: relative; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 16px 18px; margin-bottom: 14px; }
-    .t-item::before { content: ""; position: absolute; left: -26px; top: 20px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent1); border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--accent1); }
-    .t-item.now::before { background: var(--accent3); box-shadow: 0 0 0 2px var(--accent3), 0 0 14px var(--accent3); }
-    .t-year { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent3); }
-    .t-title { font-size: 1.15rem; font-weight: 800; }
-    .t-place { color: var(--muted); font-size: 0.95rem; }
-    .t-sub { list-style: none; margin-top: 12px; display: grid; gap: 8px; }
-    .t-sub li { display: flex; gap: 10px; align-items: flex-start; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 10px 12px; font-size: 0.92rem; }
-    .t-sub b { display: block; }
-    .t-sub .muted { display: block; color: var(--muted); font-size: 0.82rem; }
-    .t-tag { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: rgba(127,92,255,0.22); color: #c9b8ff; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
-    .t-tag.intern { background: rgba(255,110,199,0.18); color: #ffb3e1; }
-    
     /* ---------- Floating 👋 balloons ---------- */
     function celebrate(emoji = "👋", count = 30) {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -547,6 +594,7 @@
         setTimeout(() => e.remove(), (duration + 1.5) * 1000);
       }
     }
+
     /* ---------- Journey map ---------- */
     const stops = [
       { name: "Seoul",     country: "South Korea",      coords: [37.5665, 126.9780] },
@@ -596,6 +644,7 @@
       }
       anim.push(setTimeout(() => markers[stops.length - 1].openPopup(), 700 + (stops.length - 1) * 1000 + 300));
     }
+
     /* ---------- Click-through pages ---------- */
     const pages = document.querySelectorAll(".page");
     const dotsBox = document.getElementById("dots");
@@ -627,9 +676,9 @@
       dots.forEach((d, n) => d.classList.toggle("active", n === i));
       current = i;
 
-      // Balloons only on the first page
-      if (i === 0) celebrate("👋");
-      if (i === 2) playJourney();
+      if (i === 0) celebrate("👋");   // balloons on page 1
+      if (i === 2) playJourney();      // map animation on page 3
+
       const last = i === pages.length - 1;
       hint.textContent = last ? "Click anywhere to start over" : "Click anywhere to continue";
       back.classList.toggle("show", i > 0);
