@@ -253,6 +253,23 @@
     }
     #back.show { opacity: 1; pointer-events: auto; }
 
+    /* ================= FLOATING 👋 BALLOONS ================= */
+    .float-emoji {
+      position: fixed;
+      bottom: -80px;
+      z-index: 50;
+      pointer-events: none;
+      animation: floatUp linear forwards;
+    }
+    @keyframes floatUp {
+      0%   { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 0; }
+      10%  { opacity: 1; transform: translate(0, -10vh) rotate(-10deg) scale(1); }
+      30%  { transform: translate(var(--sway), -35vh) rotate(12deg); }
+      55%  { transform: translate(calc(var(--sway) * -1), -65vh) rotate(-12deg); }
+      80%  { transform: translate(var(--sway), -95vh) rotate(8deg); opacity: 1; }
+      100% { transform: translate(0, -125vh) rotate(0deg); opacity: 0; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
@@ -294,10 +311,10 @@
     <section class="page">
       <div class="inner">
         <div class="avatar pop">
-          <img src="TVVD4820.jpeg" alt="">
+          <img src="TVVD4820.jpeg" alt="Photo of Taerang">
         </div>
         <h1 class="pop">Hi, I'm <span class="gradient">Taerang 태랑</span></h1>
-        <p class="lead pop">You can call me by my inital "T"</p>
+        <p class="lead pop">You can call me by my initial "T"</p>
       </div>
     </section>
 
@@ -403,6 +420,25 @@
     document.getElementById("skip").addEventListener("click", endIntro);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) endIntro();
 
+    /* ---------- Floating 👋 balloons ---------- */
+    function celebrate(emoji = "👋", count = 30) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      for (let k = 0; k < count; k++) {
+        const e = document.createElement("span");
+        e.className = "float-emoji";
+        e.textContent = emoji;
+        const size = 28 + Math.random() * 40;
+        const duration = 3 + Math.random() * 2.5;
+        e.style.left = Math.random() * 100 + "vw";
+        e.style.fontSize = size + "px";
+        e.style.setProperty("--sway", (Math.random() * 60 - 30) + "px");
+        e.style.animationDuration = duration + "s";
+        e.style.animationDelay = Math.random() * 1.2 + "s";
+        document.body.appendChild(e);
+        setTimeout(() => e.remove(), (duration + 1.5) * 1000);
+      }
+    }
+
     /* ---------- Click-through pages ---------- */
     const pages = document.querySelectorAll(".page");
     const dotsBox = document.getElementById("dots");
@@ -433,6 +469,9 @@
       });
       dots.forEach((d, n) => d.classList.toggle("active", n === i));
       current = i;
+
+      // Balloons only on the first page
+      if (i === 0) celebrate("👋");
 
       const last = i === pages.length - 1;
       hint.textContent = last ? "Click anywhere to start over" : "Click anywhere to continue";
