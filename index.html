@@ -388,7 +388,7 @@
     <section class="page">
       <div class="inner">
         <p class="label pop">Places</p>
-        <h2 class="pop">My Meaningful<span class="gradient">Places</span></h2>
+        <h2 class="pop">My Meaningful <span class="gradient">Places</span></h2>
 
         <div class="places pop">
           <div class="place">
@@ -433,15 +433,31 @@
     </section>
 
     <!-- PAGE 4: Fun Facts -->
+      <!-- PAGE 4: Academic & Professional Journey -->
     <section class="page">
       <div class="inner">
-        <p class="label pop">Fun Facts</p>
-        <h2 class="pop">Some <span class="gradient">fun facts</span></h2>
-        <ul class="facts pop">
-          <li>🌟 Fun fact number one about you.</li>
-          <li>🍕 Your favorite food is ...</li>
-          <li>✈️ A place you'd love to visit someday.</li>
-        </ul>
+        <p class="label pop">Journey</p>
+        <h2 class="pop">Academic &amp; Professional</h2>
+        <div class="timeline pop">
+
+          <div class="t-item">
+            <span class="t-year">2023 – 2026</span>
+            <div class="t-title">Bachelor's in Management, Decisions & Data Analytics</div>
+            <div class="t-place">Constructor University, Bremen</div>
+            <ul class="t-sub">
+              <li><span class="t-tag">TA</span><div><b>Teaching Assistant – Digital Marketing</b><span class="muted">2024</span></div></li>
+              <li><span class="t-tag intern">Intern</span><div><b>Summer Intern (International Business) – Mononext</b><span class="muted"> Bankgkok </span></div></li>
+              <li><span class="t-tag">TA</span><div><b>Teaching Assistant – International Strategic Management</b><span class="muted">2025</span></div></li>
+            </ul>
+          </div>
+
+          <div class="t-item now">
+            <span class="t-year">2026 – Now</span>
+            <div class="t-title">[Your Current Program]</div>
+            <div class="t-place">[School], Berlin</div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -497,6 +513,22 @@
     document.getElementById("skip").addEventListener("click", endIntro);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) endIntro();
 
+        /* ===== Timeline (page 4) ===== */
+    .timeline { position: relative; max-width: 620px; margin: 0 auto; text-align: left; padding-left: 28px; }
+    .timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; border-radius: 2px; background: linear-gradient(var(--accent3), var(--accent1), var(--accent2)); }
+    .t-item { position: relative; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 16px 18px; margin-bottom: 14px; }
+    .t-item::before { content: ""; position: absolute; left: -26px; top: 20px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent1); border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--accent1); }
+    .t-item.now::before { background: var(--accent3); box-shadow: 0 0 0 2px var(--accent3), 0 0 14px var(--accent3); }
+    .t-year { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; color: var(--accent3); }
+    .t-title { font-size: 1.15rem; font-weight: 800; }
+    .t-place { color: var(--muted); font-size: 0.95rem; }
+    .t-sub { list-style: none; margin-top: 12px; display: grid; gap: 8px; }
+    .t-sub li { display: flex; gap: 10px; align-items: flex-start; background: rgba(255,255,255,0.04); border-radius: 12px; padding: 10px 12px; font-size: 0.92rem; }
+    .t-sub b { display: block; }
+    .t-sub .muted { display: block; color: var(--muted); font-size: 0.82rem; }
+    .t-tag { flex-shrink: 0; font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: rgba(127,92,255,0.22); color: #c9b8ff; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }
+    .t-tag.intern { background: rgba(255,110,199,0.18); color: #ffb3e1; }
+    
     /* ---------- Floating 👋 balloons ---------- */
     function celebrate(emoji = "👋", count = 30) {
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
